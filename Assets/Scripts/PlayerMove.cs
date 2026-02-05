@@ -7,10 +7,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeedMultiplier = 1.5f;
 
-    [Header("Stamina Settings")]
-    [SerializeField] private float staminaDrainPerSecond = 10f;
-    [SerializeField] private float staminaRegenPerSecond = 5f;
-
     private Rigidbody2D rb;
     private PlayerStats stats;
     private bool isSprinting;
@@ -75,11 +71,11 @@ public class PlayerMove : MonoBehaviour
         if (isSprinting && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
                            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
         {
-            stats.ChangeStamina(-staminaDrainPerSecond * Time.deltaTime);
+            stats.ChangeStamina(-stats.GetStaminaDrainAmount() * Time.deltaTime);
         }
         else if (!isSprinting && stats.CurrentStamina < stats.MaxStamina)
         {
-            stats.ChangeStamina(staminaRegenPerSecond * Time.deltaTime);
+            stats.ChangeStamina(stats.GetStaminaRegenAmount() * Time.deltaTime);
         }
     }
 }

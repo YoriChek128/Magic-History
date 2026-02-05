@@ -1,32 +1,32 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private Slider healthSlider;
-    [SerializeField] private Text healthText;
+    [SerializeField] private Image health;
+    [SerializeField] private TMP_Text healthText;
 
     [Header("Stamina")]
-    [SerializeField] private Slider staminaSlider;
-    [SerializeField] private Text staminaText;
+    [SerializeField] private Image stamina;
+    [SerializeField] private TMP_Text staminaText;
 
     [Header("Mana")]
-    [SerializeField] private Slider manaSlider;
-    [SerializeField] private Text manaText;
+    [SerializeField] private Image mana;
+    [SerializeField] private TMP_Text manaText;
 
     private PlayerStats playerStats;
 
     private void Start()
     {
         playerStats = FindFirstObjectByType<PlayerStats>();
+    }
 
+    private void Update()
+    {
         if (playerStats != null)
         {
-            playerStats.OnHealthChanged.AddListener(UpdateHealthUI);
-            playerStats.OnStaminaChanged.AddListener(UpdateStaminaUI);
-            playerStats.OnManaChanged.AddListener(UpdateManaUI);
-
             // Инициализация UI
             UpdateHealthUI(playerStats.CurrentHealth, playerStats.MaxHealth);
             UpdateStaminaUI(playerStats.CurrentStamina, playerStats.MaxStamina);
@@ -36,10 +36,9 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHealthUI(float current, float max)
     {
-        if (healthSlider != null)
+        if (health != null)
         {
-            healthSlider.maxValue = max;
-            healthSlider.value = current;
+            health.fillAmount = current / max;
         }
 
         if (healthText != null)
@@ -50,10 +49,9 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateStaminaUI(float current, float max)
     {
-        if (staminaSlider != null)
+        if (stamina != null)
         {
-            staminaSlider.maxValue = max;
-            staminaSlider.value = current;
+            stamina.fillAmount = current / max;
         }
 
         if (staminaText != null)
@@ -64,10 +62,9 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateManaUI(float current, float max)
     {
-        if (manaSlider != null)
+        if (mana != null)
         {
-            manaSlider.maxValue = max;
-            manaSlider.value = current;
+            mana.fillAmount = current / max;
         }
 
         if (manaText != null)

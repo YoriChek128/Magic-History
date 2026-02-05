@@ -13,6 +13,8 @@ public class PlayerStats : MonoBehaviour
     [Header("Stamina Settings")]
     [SerializeField] private float maxStamina = 100f;
     [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaDrainPerSecond = 10f;
+    [SerializeField] private float staminaRegenPerSecond = 5f;
 
     [Header("Mana Settings")]
     [SerializeField] private float maxMana = 100f;
@@ -99,6 +101,31 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Игрок погиб!");
         // Здесь можно добавить логику смерти
         Time.timeScale = 0; // Остановка игры
+    }
+
+    public float GetHealthAmount()
+    {
+        return currentHealth;
+    }
+
+    public float GetStaminaAmount()
+    {
+        return currentStamina;
+    }
+
+    public float GetManaAmount()
+    {
+        return currentMana;
+    }
+
+    public float GetStaminaDrainAmount()
+    {
+        return staminaDrainPerSecond;
+    }
+
+    public float GetStaminaRegenAmount()
+    {
+        return staminaRegenPerSecond;
     }
 
     // Методы для увеличения максимальных значений (можно использовать для улучшений)
