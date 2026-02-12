@@ -6,25 +6,31 @@ public class StatsChangedEvent : UnityEvent<float, float> { }
 
 public class PlayerStats : MonoBehaviour
 {
+    [Header("Level Setting")]
+    [SerializeField] private int physicalLevel = 0;
+    [SerializeField] private int magicLevel = 0;
+
     [Header("Health Settings")]
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
+    [SerializeField] private int maxHealth;
+    [SerializeField] private int currentHealth;
 
     [Header("Stamina Settings")]
-    [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float currentStamina;
-    [SerializeField] private float staminaDrainPerSecond = 10f;
-    [SerializeField] private float staminaRegenPerSecond = 5f;
+    [SerializeField] private int maxStamina;
+    [SerializeField] private int currentStamina;
+    [SerializeField] private int staminaDrainPerSecond;
+    [SerializeField] private int staminaRegenPerSecond;
 
     [Header("Mana Settings")]
-    [SerializeField] private float maxMana = 100f;
-    [SerializeField] private float currentMana;
-    [SerializeField] private float manaRegenPerSecond = 2f;
+    [SerializeField] private int maxMana;
+    [SerializeField] private int currentMana;
+    [SerializeField] private int manaRegenPerSecond;
 
     [Header("Events")]
     public StatsChangedEvent OnHealthChanged;
     public StatsChangedEvent OnStaminaChanged;
     public StatsChangedEvent OnManaChanged;
+
+    public StatsChangedEvent OnLevelChanged;
 
     // Свойства для доступа к значениям
     public float MaxHealth => maxHealth;
@@ -36,19 +42,23 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        InitializeStats();
+        InitializeStats(physicalLevel, magicLevel);
         StartCoroutine(ManaRegeneration());
     }
 
-    private void InitializeStats()
+    private void InitializeStats(int physical, int magic)
     {
+        maxHealth = 50 + 5*physical;
+        maxStamina = 20 + 10*physical;
+        maxMana = 10 + 10*magic;
+
+        staminaDrainPerSecond = 2;
+        staminaRegenPerSecond = 1 + physical / 10;
+        manaRegenPerSecond = 1 + magic / 10;
+
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         currentMana = maxMana;
-
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        OnStaminaChanged?.Invoke(currentStamina, maxStamina);
-        OnManaChanged?.Invoke(currentMana, maxMana);
     }
 
     private System.Collections.IEnumerator ManaRegeneration()
@@ -63,7 +73,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void ChangeHealth(float amount)
+    public void ChangeHealth(int amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
@@ -74,19 +84,19 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void ChangeStamina(float amount)
+    public void ChangeStamina(int amount)
     {
         currentStamina = Mathf.Clamp(currentStamina + amount, 0, maxStamina);
         OnStaminaChanged?.Invoke(currentStamina, maxStamina);
     }
 
-    public void ChangeMana(float amount)
+    public void ChangeMana(int amount)
     {
         currentMana = Mathf.Clamp(currentMana + amount, 0, maxMana);
         OnManaChanged?.Invoke(currentMana, maxMana);
     }
 
-    public bool TryUseMana(float amount)
+    public bool TryUseMana(int amount)
     {
         if (currentMana >= amount)
         {
@@ -103,50 +113,28 @@ public class PlayerStats : MonoBehaviour
         Time.timeScale = 0; // Остановка игры
     }
 
-    public float GetHealthAmount()
+    public int GetHealthAmount()
     {
         return currentHealth;
     }
 
-    public float GetStaminaAmount()
+    public int GetStaminaAmount()
     {
         return currentStamina;
     }
 
-    public float GetManaAmount()
+    public int GetManaAmount()
     {
         return currentMana;
     }
 
-    public float GetStaminaDrainAmount()
+    public int GetStaminaDrainAmount()
     {
         return staminaDrainPerSecond;
     }
 
-    public float GetStaminaRegenAmount()
+    public int GetStaminaRegenAmount()
     {
         return staminaRegenPerSecond;
-    }
-
-    // Методы для увеличения максимальных значений (можно использовать для улучшений)
-    public void IncreaseMaxHealth(float amount)
-    {
-        maxHealth += amount;
-        currentHealth += amount;
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    }
-
-    public void IncreaseMaxStamina(float amount)
-    {
-        maxStamina += amount;
-        currentStamina += amount;
-        OnStaminaChanged?.Invoke(currentStamina, maxStamina);
-    }
-
-    public void IncreaseMaxMana(float amount)
-    {
-        maxMana += amount;
-        currentMana += amount;
-        OnManaChanged?.Invoke(currentMana, maxMana);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -71,11 +72,11 @@ public class PlayerMove : MonoBehaviour
         if (isSprinting && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
                            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
         {
-            stats.ChangeStamina(-stats.GetStaminaDrainAmount() * Time.deltaTime);
+            stats.ChangeStamina(-stats.GetStaminaDrainAmount() * (Mathf.RoundToInt(Time.deltaTime) + 1));
         }
         else if (!isSprinting && stats.CurrentStamina < stats.MaxStamina)
         {
-            stats.ChangeStamina(stats.GetStaminaRegenAmount() * Time.deltaTime);
+            stats.ChangeStamina(stats.GetStaminaRegenAmount() * (Mathf.RoundToInt(Time.deltaTime) + 1));
         }
     }
 }
