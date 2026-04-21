@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Events;
+
 /// <summary>
 /// Типы магических техник
 /// </summary>
@@ -179,10 +179,19 @@ public class MagicSystem : MonoBehaviour
     [SerializeField] private string absoluteZoneName = "";
     [SerializeField] private int yearsToMaster = 0;
     
-    public event UnityAction<MagicType> OnTechniqueUsed;
-    public event UnityAction<AnomalyZoneType> OnZoneOpened;
+    [Header("Events")]
+    public event Action<MagicType> OnTechniqueUsed;
+    public event Action<AnomalyZoneType> OnZoneOpened;
     
     private EnergySystem energySystem;
+    
+    // Известные абсолютные зоны
+    private static readonly string[] knownAbsoluteZones = new string[]
+    {
+        "Божественная чистка",    // Коджекс
+        "Танец лезвий",          // Джек
+        "Гниющий сад воспоминаний" // Росток
+    };
     
     private void Start()
     {
@@ -376,6 +385,14 @@ public class MagicSystem : MonoBehaviour
             absoluteZoneName = name;
             Debug.Log($"Абсолютная АЗ названа: {name}");
         }
+    }
+    
+    /// <summary>
+    /// Получить список известных Абсолютных зон
+    /// </summary>
+    public static string[] GetKnownAbsoluteZones()
+    {
+        return knownAbsoluteZones;
     }
     
     #endregion

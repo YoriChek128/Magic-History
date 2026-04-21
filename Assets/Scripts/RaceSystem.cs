@@ -222,6 +222,7 @@ public class RaceSystem : MonoBehaviour
     [SerializeField] private bool hasRewriteAccess = false;
     [SerializeField] private int universeID = 8; // Для Системной пары #8
     
+    [Header("Events")]
     public event Action<RaceType> OnRaceChanged;
     public event Action OnAwakening;
     public event Action OnPuppetThreadCut;
