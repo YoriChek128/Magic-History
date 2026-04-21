@@ -8,7 +8,7 @@ public class AnomalyZone : MonoBehaviour
     [Header("Zone Settings")]
     [SerializeField] private AnomalyZoneType zoneType;
     [SerializeField] private float radius = 5f;
-    [SerializeField] private float duration = -1f; // -1 = бесконечно
+    [SerializeField] private float energyCost = 10f; // Затраты энергии вместо длительности
     
     [Header("Zone Effects")]
     [SerializeField] private bool isActive = true;
@@ -21,7 +21,6 @@ public class AnomalyZone : MonoBehaviour
     
     private EnergySystem ownerEnergySystem;
     private CircleCollider2D zoneCollider;
-    private float elapsedTime = 0f;
     
     /// <summary>
     /// Инициализация зоны
@@ -122,13 +121,8 @@ public class AnomalyZone : MonoBehaviour
     {
         if (!isActive) return;
         
-        elapsedTime += Time.deltaTime;
-        
-        // Проверка длительности зоны
-        if (duration > 0 && elapsedTime >= duration)
-        {
-            DeactivateZone();
-        }
+        // Зоны не имеют длительности - они активны пока не будут деактивированы
+        // Энергия тратится при создании зоны, не каждый кадр
     }
     
     /// <summary>
@@ -271,7 +265,7 @@ public class AnomalyZone : MonoBehaviour
     {
         string info = $"Тип зоны: {zoneType}\n";
         info += $"Радиус: {radius}\n";
-        info += $"Длительность: {(duration > 0 ? duration + " сек" : "Бесконечно")}\n";
+        info += $"Затраты энергии: {energyCost}\n";
         info += $"Активна: {isActive}\n";
         
         if (isAbsoluteZone)
