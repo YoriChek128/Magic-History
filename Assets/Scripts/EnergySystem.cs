@@ -50,7 +50,6 @@ public class EnergySystem : MonoBehaviour
     [SerializeField] private string absoluteZoneName = "";
     [SerializeField] private int masteryYears = 0;
 
-    [Header("Events")]
     public event Action<EnergyType, float> OnEnergyChanged;
     public event Action<HumanEnergyState> OnHumanEnergyStateChanged;
 

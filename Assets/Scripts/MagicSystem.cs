@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -214,7 +215,6 @@ public class MagicSystem : MonoBehaviour
     [SerializeField] private string absoluteZoneName = "";
     [SerializeField] private int yearsToMaster = 0;
     
-    [Header("Events")]
     public event Action<MagicType> OnTechniqueUsed;
     public event Action<AnomalyZoneType> OnZoneOpened;
     

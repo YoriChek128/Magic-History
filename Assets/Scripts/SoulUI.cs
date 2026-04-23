@@ -126,7 +126,6 @@ public class SoulUI : MonoBehaviour
     [SerializeField] private MagicSystem magicSystem;
     [SerializeField] private RaceSystem raceSystem;
     
-    [Header("Events")]
     public event Action<SoulUIButtonType> OnButtonPressed;
     public event Action<string> OnConsoleCommand;
     

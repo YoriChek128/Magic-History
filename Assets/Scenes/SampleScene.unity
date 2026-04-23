@@ -132,7 +132,14 @@ GameObject:
   - component: {fileID: 114270418}
   - component: {fileID: 114270417}
   - component: {fileID: 114270416}
+  - component: {fileID: 114270427}
   - component: {fileID: 114270415}
+  - component: {fileID: 114270426}
+  - component: {fileID: 114270425}
+  - component: {fileID: 114270424}
+  - component: {fileID: 114270423}
+  - component: {fileID: 114270422}
+  - component: {fileID: 114270421}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -335,6 +342,161 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114270421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eef3393a84c1974b9ca08938c00de94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoulUI
+  availableButtons: []
+  isDeity: 0
+  universeID: 8
+  energySystem: {fileID: 114270424}
+  magicSystem: {fileID: 114270425}
+  raceSystem: {fileID: 114270422}
+--- !u!114 &114270422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb858824673d30a4bbb80e5adb90e663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceSystem
+  currentRace:
+    raceType: 0
+    raceName: 
+    description: 
+    primaryEnergy: 0
+    additionalEnergies: 
+    soulType: 0
+    hasSpecialAbility: 0
+    specialAbilityName: 
+    specialAbilityDescription: 
+  isAwakened: 0
+  puppetMaster: {fileID: 0}
+  isConnectedToThreads: 1
+  isSystemBroken: 0
+  componentCount: 0
+  hasConsoleAccess: 0
+  hasRewriteAccess: 0
+  universeID: 8
+--- !u!114 &114270423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a92f61b8a84d542908f8c89c8b1275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  race: 0
+  primaryEnergy: 0
+  secondaryEnergy: 0
+  tertiaryEnergy: 0
+  magicName: 
+  hasSpecialAbility: 0
+  meleeRange: 2
+  rangedSpeed: 10
+  rangedDamage: 10
+  meleeDamage: 5
+  attackPoint: {fileID: 0}
+  rangedProjectilePrefab: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &114270424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e885af7825188441a922bf5fd0a28e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnergySystem
+  primaryEnergyType: 0
+  maxEnergy: 100
+  currentEnergy: 100
+  energyRegenPerSecond: 1
+  humanEnergyState: 0
+  heatLevel: 0
+  firstMagicType: 0
+  secondMagicType: 0
+  canCreateHybrids: 1
+  activeZoneType: 0
+  absoluteZoneName: 
+  masteryYears: 0
+--- !u!114 &114270425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43316517a19e68046b3c649bbacc12e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagicSystem
+  hasMagicAbility: 0
+  knownTechniques: 
+  masteryLevel: 0
+  zoneMastery: 0
+  trainingMonths: 0
+  absoluteZoneName: 
+  yearsToMaster: 0
+--- !u!114 &114270426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f8b67e5b4543b4f894dddc414952f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterGenerator
+--- !u!114 &114270427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114270414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a70e4c82c3ebf241a0342551605651a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatSystem
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 114270420}
+  meleeRange: 2
+  meleeDamage: 10
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  projectileSpeed: 15
+  rangedDamage: 15
+  defenseMultiplier: 0.5
+  hitEffectPrefab: {fileID: 0}
+  meleeEffectPrefab: {fileID: 0}
 --- !u!1 &169255074
 GameObject:
   m_ObjectHideFlags: 0
