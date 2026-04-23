@@ -13,49 +13,98 @@ public class CharacterGenerator : MonoBehaviour
 
     private static readonly List<MagicData> allMagics = new List<MagicData>
     {
-        // Стихия
+        // === СТИХИЯ (23 магии) ===
         new MagicData { name = "Огонь", theme = MagicTheme.Element, description = "Управление огнем" },
         new MagicData { name = "Вода", theme = MagicTheme.Element, description = "Управление водой" },
-        new MagicData { name = "Лед", theme = MagicTheme.Element, description = "Управление льдом" },
-        new MagicData { name = "Молния", theme = MagicTheme.Element, description = "Управление молнией" },
+        new MagicData { name = "Лёд", theme = MagicTheme.Element, description = "Управление льдом" },
         new MagicData { name = "Земля", theme = MagicTheme.Element, description = "Управление землей" },
-        new MagicData { name = "Ветер", theme = MagicTheme.Element, description = "Управление ветром" },
+        new MagicData { name = "Воздух", theme = MagicTheme.Element, description = "Управление воздухом" },
+        new MagicData { name = "Молния", theme = MagicTheme.Element, description = "Управление молнией" },
         new MagicData { name = "Тьма", theme = MagicTheme.Element, description = "Управление тьмой" },
         new MagicData { name = "Свет", theme = MagicTheme.Element, description = "Управление светом" },
+        new MagicData { name = "Кровь", theme = MagicTheme.Element, description = "Управление кровью" },
+        new MagicData { name = "Космос", theme = MagicTheme.Element, description = "Управление космосом" },
+        new MagicData { name = "Песок", theme = MagicTheme.Element, description = "Управление песком" },
+        new MagicData { name = "Магма", theme = MagicTheme.Element, description = "Управление магмой" },
+        new MagicData { name = "Чернила", theme = MagicTheme.Element, description = "Управление чернилами" },
         new MagicData { name = "Кислота", theme = MagicTheme.Element, description = "Управление кислотой" },
-        new MagicData { name = "Природа", theme = MagicTheme.Element, description = "Управление растениями" },
+        new MagicData { name = "Железо", theme = MagicTheme.Element, description = "Управление железом" },
+        new MagicData { name = "Тень", theme = MagicTheme.Element, description = "Управление тенью" },
+        new MagicData { name = "Нити", theme = MagicTheme.Element, description = "Управление нитями" },
+        new MagicData { name = "Природа", theme = MagicTheme.Element, description = "Управление природой" },
+        new MagicData { name = "Яд", theme = MagicTheme.Element, description = "Управление ядом" },
+        new MagicData { name = "Газ", theme = MagicTheme.Element, description = "Управление газом" },
+        new MagicData { name = "Пыль", theme = MagicTheme.Element, description = "Управление пылью" },
+        new MagicData { name = "Стекло", theme = MagicTheme.Element, description = "Управление стеклом" },
         
-        // Техническая
-        new MagicData { name = "Хакер Реальности", theme = MagicTheme.Technical, description = "Взлом реальности" },
+        // === ТЕХНИЧЕСКАЯ (13 магий) ===
+        new MagicData { name = "Контроль роботов", theme = MagicTheme.Technical, description = "Управление роботами" },
         new MagicData { name = "Хирургия", theme = MagicTheme.Technical, description = "Биологические манипуляции" },
-        new MagicData { name = "Робототехника", theme = MagicTheme.Technical, description = "Управление механизмами" },
+        new MagicData { name = "Физическая сила", theme = MagicTheme.Technical, description = "Усиление физической силы" },
+        new MagicData { name = "Помехи и сбои", theme = MagicTheme.Technical, description = "Создание помех" },
+        new MagicData { name = "Взлом реальности", theme = MagicTheme.Technical, description = "Взлом реальности" },
+        new MagicData { name = "Магнетизм", theme = MagicTheme.Technical, description = "Управление магнетизмом" },
         new MagicData { name = "Лазер", theme = MagicTheme.Technical, description = "Энергетические лучи" },
-        new MagicData { name = "Кибернетика", theme = MagicTheme.Technical, description = "Технологические улучшения" },
+        new MagicData { name = "Энерго пластины", theme = MagicTheme.Technical, description = "Создание энергопластин" },
+        new MagicData { name = "Радиация", theme = MagicTheme.Technical, description = "Управление радиацией" },
+        new MagicData { name = "Аналитизм", theme = MagicTheme.Technical, description = "Анализ и вычисления" },
+        new MagicData { name = "Коллизия", theme = MagicTheme.Technical, description = "Управление столкновениями" },
+        new MagicData { name = "Интерфейс", theme = MagicTheme.Technical, description = "Создание интерфейсов" },
+        new MagicData { name = "Манипуляция телом", theme = MagicTheme.Technical, description = "Изменение тела" },
         
-        // Пространство
-        new MagicData { name = "Гравитация", theme = MagicTheme.Space, description = "Контроль гравитации" },
+        // === ПРОСТРАНСТВО (9 магий) ===
         new MagicData { name = "Телекинез", theme = MagicTheme.Space, description = "Перемещение объектов" },
-        new MagicData { name = "Телепортация", theme = MagicTheme.Space, description = "Мгновенное перемещение" },
+        new MagicData { name = "Барьеры", theme = MagicTheme.Space, description = "Создание барьеров" },
         new MagicData { name = "Порталы", theme = MagicTheme.Space, description = "Создание проходов" },
+        new MagicData { name = "Клинок пространства", theme = MagicTheme.Space, description = "Разрезы пространства" },
+        new MagicData { name = "Гравитация", theme = MagicTheme.Space, description = "Контроль гравитации" },
+        new MagicData { name = "Движение", theme = MagicTheme.Space, description = "Управление движением" },
+        new MagicData { name = "Иллюзии", theme = MagicTheme.Space, description = "Создание иллюзий" },
+        new MagicData { name = "Зеркальная реальность", theme = MagicTheme.Space, description = "Отражение реальности" },
+        new MagicData { name = "Пространство", theme = MagicTheme.Space, description = "Искажение пространства" },
         
-        // Время
-        new MagicData { name = "Ускорение", theme = MagicTheme.Time, description = "Ускорение времени" },
-        new MagicData { name = "Замедление", theme = MagicTheme.Time, description = "Замедление времени" },
-        new MagicData { name = "Пауза", theme = MagicTheme.Time, description = "Остановка времени" },
-        new MagicData { name = "Возврат", theme = MagicTheme.Time, description = "Возврат во времени" },
+        // === ВРЕМЯ (9 магий) ===
+        new MagicData { name = "Предсказание", theme = MagicTheme.Time, description = "Видение будущего" },
+        new MagicData { name = "Хронос", theme = MagicTheme.Time, description = "Контроль времени" },
+        new MagicData { name = "Остановка времени", theme = MagicTheme.Time, description = "Пауза времени" },
+        new MagicData { name = "Откат времени", theme = MagicTheme.Time, description = "Возврат во времени" },
+        new MagicData { name = "Пропуск времени", theme = MagicTheme.Time, description = "Пропуск моментов" },
+        new MagicData { name = "Цикл времени", theme = MagicTheme.Time, description = "Временные петли" },
+        new MagicData { name = "Ускорение времени", theme = MagicTheme.Time, description = "Ускорение времени" },
+        new MagicData { name = "Зеркала времен", theme = MagicTheme.Time, description = "Отражение временных линий" },
+        new MagicData { name = "Время", theme = MagicTheme.Time, description = "Абсолютное время" },
         
-        // Особая
+        // === ОСОБАЯ (16 магий) ===
+        new MagicData { name = "Лезвие жизни", theme = MagicTheme.Special, description = "Управление жизненной энергией" },
+        new MagicData { name = "Порча", theme = MagicTheme.Special, description = "Накладывание порчи" },
+        new MagicData { name = "Взрыв", theme = MagicTheme.Special, description = "Создание взрывов" },
+        new MagicData { name = "Рассечение", theme = MagicTheme.Special, description = "Создание разрезов" },
+        new MagicData { name = "Импульс", theme = MagicTheme.Special, description = "Энергетические импульсы" },
+        new MagicData { name = "Болезнь", theme = MagicTheme.Special, description = "Распространение болезней" },
+        new MagicData { name = "Созидание кукол", theme = MagicTheme.Special, description = "Создание марионеток" },
+        new MagicData { name = "Управление призраками", theme = MagicTheme.Special, description = "Контроль духов" },
+        new MagicData { name = "Плавление энергий", theme = MagicTheme.Special, description = "Расплавление магии" },
+        new MagicData { name = "Магия цепей", theme = MagicTheme.Special, description = "Создание цепей" },
+        new MagicData { name = "Управление погодой", theme = MagicTheme.Special, description = "Контроль погоды" },
         new MagicData { name = "Исцеление", theme = MagicTheme.Special, description = "Восстановление здоровья" },
         new MagicData { name = "Вампиризм", theme = MagicTheme.Special, description = "Кража жизненной силы" },
-        new MagicData { name = "Взрыв", theme = MagicTheme.Special, description = "Создание взрывов" },
-        new MagicData { name = "Разрез", theme = MagicTheme.Special, description = "Создание разрезов" },
-        new MagicData { name = "Барьер", theme = MagicTheme.Special, description = "Создание защитных полей" },
+        new MagicData { name = "Магия красок", theme = MagicTheme.Special, description = "Манипуляция красками" },
+        new MagicData { name = "Копирование техник", theme = MagicTheme.Special, description = "Копирование способностей" },
+        new MagicData { name = "Небесная кара", theme = MagicTheme.Special, description = "Божественное наказание" },
         
-        // Божественная
+        // === БОЖЕСТВЕННАЯ (12 магий) ===
         new MagicData { name = "Созидание", theme = MagicTheme.Divine, description = "Создание материи" },
         new MagicData { name = "Разрушение", theme = MagicTheme.Divine, description = "Разрушение материи" },
-        new MagicData { name = "Контроль", theme = MagicTheme.Divine, description = "Контроль разума" },
-        new MagicData { name = "Отрицание", theme = MagicTheme.Divine, description = "Отмена магии" }
+        new MagicData { name = "Хаос", theme = MagicTheme.Divine, description = "Управление хаосом" },
+        new MagicData { name = "Возрождение", theme = MagicTheme.Divine, description = "Воскрешение" },
+        new MagicData { name = "Аннигиляция", theme = MagicTheme.Divine, description = "Полное уничтожение" },
+        new MagicData { name = "Разум", theme = MagicTheme.Divine, description = "Контроль разума" },
+        new MagicData { name = "Душа", theme = MagicTheme.Divine, description = "Манипуляция душами" },
+        new MagicData { name = "Отрицание", theme = MagicTheme.Divine, description = "Отмена магии" },
+        new MagicData { name = "Эмоции", theme = MagicTheme.Divine, description = "Управление эмоциями" },
+        new MagicData { name = "Код", theme = MagicTheme.Divine, description = "Редактирование кода реальности" },
+        new MagicData { name = "Контроль", theme = MagicTheme.Divine, description = "Абсолютный контроль" },
+        new MagicData { name = "Режиссура Главного Героя", theme = MagicTheme.Divine, description = "Управление сюжетом" }
     };
 
     private static readonly List<EnergyType> distortedEnergies = new List<EnergyType>
@@ -191,38 +240,15 @@ public class CharacterGenerator : MonoBehaviour
 
     private MagicData RollMagic(RaceType race, EnergyType primaryEnergy)
     {
-        if (primaryEnergy == EnergyType.None && race != RaceType.EnergylessChaos)
-        {
-            return allMagics[Random.Range(0, allMagics.Count)];
-        }
-
-        if (race == RaceType.DistortedChaos)
-        {
-            return allMagics[Random.Range(0, allMagics.Count)];
-        }
-
-        List<MagicData> validMagics = new List<MagicData>();
-        foreach (var magic in allMagics)
-        {
-            if (IsMagicCompatible(magic.theme, primaryEnergy))
-            {
-                validMagics.Add(magic);
-            }
-        }
-
-        if (validMagics.Count == 0)
-            return allMagics[Random.Range(0, allMagics.Count)];
-
-        return validMagics[Random.Range(0, validMagics.Count)];
-    }
-
-    private bool IsMagicCompatible(MagicTheme theme, EnergyType energy)
-    {
-        return true;
+        // Магия НЕ зависит от расы - любое существо может получить любую магию
+        // Включая человека с Божественной магией, Амальгаму с магией Времени/Пространства и т.д.
+        int randomIndex = Random.Range(0, allMagics.Count);
+        return allMagics[randomIndex];
     }
 
     private bool CanUseSpecialAbility(RaceType race, EnergyType primaryEnergy)
     {
+        // Если существо не может пользоваться энергией, то он не может использовать особый навык
         if (primaryEnergy == EnergyType.None)
             return false;
 
@@ -233,7 +259,7 @@ public class CharacterGenerator : MonoBehaviour
             case RaceType.FormedAnomaly:
                 return true;
             default:
-                return primaryEnergy != EnergyType.None;
+                return true; // Любое существо с энергией может использовать особый прием
         }
     }
 

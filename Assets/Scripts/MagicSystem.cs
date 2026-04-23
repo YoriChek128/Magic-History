@@ -1,57 +1,36 @@
 using UnityEngine;
 
 /// <summary>
-/// Типы магических техник
+/// Типы магических техник (полный список, не зависит от расы)
 /// </summary>
 public enum MagicType
 {
     None,
     
-    // Стихия
-    Fire,
-    Water,
-    Ice,
-    Cosmos,
-    Acid,
-    Nature,
-    Sand,
-    Air,
-    Lightning,
-    Darkness,
+    // === СТИХИЯ (23 магии) ===
+    Fire, Water, Ice, Earth, Air, Lightning, Darkness, Light, Blood, Cosmos, 
+    Sand, Magma, Ink, Acid, Iron, Shadow, Threads, Nature, Poison, Gas, Dust, Glass,
     
-    // Техническая
-    RealityHacker,
-    Surgery,
-    RobotControl,
-    Laser,
+    // === ТЕХНИЧЕСКАЯ (13 магий) ===
+    RobotControl, Surgery, PhysicalForce, Glitches, RealityHack, Magnetism, 
+    Laser, EnergyPlates, Radiation, Analytism, Collision, Interface, BodyManipulation,
     
-    // Пространство
-    Gravity,
-    Telekinesis,
-    Teleport,
+    // === ПРОСТРАНСТВО (9 магий) ===
+    Telekinesis, Barriers, Portals, SpaceBlade, Gravity, Movement, Illusions, 
+    MirrorReality, Space,
     
-    // Время
-    TimeReturn,
-    Chronos,
-    Skip,
-    Acceleration,
+    // === ВРЕМЯ (9 магий) ===
+    Prediction, Chronos, TimeStop, TimeRewind, TimeSkip, TimeCycle, 
+    TimeAcceleration, TimeMirrors, Time,
     
-    // Особая
-    Healing,
-    Vampirism,
-    EnergyMelting,
-    Explosions,
-    Slashes,
+    // === ОСОБАЯ (16 магий) ===
+    LifeBlade, Corruption, Explosion, Slash, Impulse, Disease, PuppetCreation, 
+    GhostControl, EnergyMelting, ChainMagic, WeatherControl, Healing, Vampire, 
+    PaintMagic, TechniqueCopy, HeavenlyPunishment,
     
-    // Божественная
-    Creation,
-    Destruction,
-    Control,
-    Mind,
-    Negation,
-    
-    // Специальные (гибриды и уникальные)
-    Special
+    // === БОЖЕСТВЕННАЯ (12 магий) ===
+    Creation, Destruction, Chaos, Rebirth, Annihilation, Mind, Soul, 
+    Denial, Emotions, Code, Control, MainHeroDirector
 }
 
 /// <summary>
@@ -59,12 +38,12 @@ public enum MagicType
 /// </summary>
 public enum MagicTheme
 {
-    Element,        // Стихия
-    Technical,      // Техническая
-    Space,          // Пространство
-    Time,           // Время
-    Special,        // Особая
-    Divine          // Божественная
+    Element,        // Стихия (23 магии)
+    Technical,      // Техническая (13 магий)
+    Space,          // Пространство (9 магий)
+    Time,           // Время (9 магий)
+    Special,        // Особая (16 магий)
+    Divine          // Божественная (12 магий)
 }
 
 /// <summary>
@@ -106,53 +85,109 @@ public class MagicTechnique
     }
     
     /// <summary>
-    /// Определить тему магии по типу
+    /// Определить тему магии по типу (полный список из 82 магий)
     /// </summary>
     public static MagicTheme GetThemeByType(MagicType type)
     {
+        // === СТИХИЯ (23 магии) ===
         switch (type)
         {
             case MagicType.Fire:
             case MagicType.Water:
             case MagicType.Ice:
-            case MagicType.Cosmos:
-            case MagicType.Acid:
-            case MagicType.Nature:
-            case MagicType.Sand:
+            case MagicType.Earth:
             case MagicType.Air:
             case MagicType.Lightning:
             case MagicType.Darkness:
+            case MagicType.Light:
+            case MagicType.Blood:
+            case MagicType.Cosmos:
+            case MagicType.Sand:
+            case MagicType.Magma:
+            case MagicType.Ink:
+            case MagicType.Acid:
+            case MagicType.Iron:
+            case MagicType.Shadow:
+            case MagicType.Threads:
+            case MagicType.Nature:
+            case MagicType.Poison:
+            case MagicType.Gas:
+            case MagicType.Dust:
+            case MagicType.Glass:
                 return MagicTheme.Element;
                 
-            case MagicType.RealityHacker:
-            case MagicType.Surgery:
+            // === ТЕХНИЧЕСКАЯ (13 магий) ===
             case MagicType.RobotControl:
+            case MagicType.Surgery:
+            case MagicType.PhysicalForce:
+            case MagicType.Glitches:
+            case MagicType.RealityHack:
+            case MagicType.Magnetism:
             case MagicType.Laser:
+            case MagicType.EnergyPlates:
+            case MagicType.Radiation:
+            case MagicType.Analytism:
+            case MagicType.Collision:
+            case MagicType.Interface:
+            case MagicType.BodyManipulation:
                 return MagicTheme.Technical;
                 
-            case MagicType.Gravity:
+            // === ПРОСТРАНСТВО (9 магий) ===
             case MagicType.Telekinesis:
-            case MagicType.Teleport:
+            case MagicType.Barriers:
+            case MagicType.Portals:
+            case MagicType.SpaceBlade:
+            case MagicType.Gravity:
+            case MagicType.Movement:
+            case MagicType.Illusions:
+            case MagicType.MirrorReality:
+            case MagicType.Space:
                 return MagicTheme.Space;
                 
-            case MagicType.TimeReturn:
+            // === ВРЕМЯ (9 магий) ===
+            case MagicType.Prediction:
             case MagicType.Chronos:
-            case MagicType.Skip:
-            case MagicType.Acceleration:
+            case MagicType.TimeStop:
+            case MagicType.TimeRewind:
+            case MagicType.TimeSkip:
+            case MagicType.TimeCycle:
+            case MagicType.TimeAcceleration:
+            case MagicType.TimeMirrors:
+            case MagicType.Time:
                 return MagicTheme.Time;
                 
-            case MagicType.Healing:
-            case MagicType.Vampirism:
+            // === ОСОБАЯ (16 магий) ===
+            case MagicType.LifeBlade:
+            case MagicType.Corruption:
+            case MagicType.Explosion:
+            case MagicType.Slash:
+            case MagicType.Impulse:
+            case MagicType.Disease:
+            case MagicType.PuppetCreation:
+            case MagicType.GhostControl:
             case MagicType.EnergyMelting:
-            case MagicType.Explosions:
-            case MagicType.Slashes:
+            case MagicType.ChainMagic:
+            case MagicType.WeatherControl:
+            case MagicType.Healing:
+            case MagicType.Vampire:
+            case MagicType.PaintMagic:
+            case MagicType.TechniqueCopy:
+            case MagicType.HeavenlyPunishment:
                 return MagicTheme.Special;
                 
+            // === БОЖЕСТВЕННАЯ (12 магий) ===
             case MagicType.Creation:
             case MagicType.Destruction:
-            case MagicType.Control:
+            case MagicType.Chaos:
+            case MagicType.Rebirth:
+            case MagicType.Annihilation:
             case MagicType.Mind:
-            case MagicType.Negation:
+            case MagicType.Soul:
+            case MagicType.Denial:
+            case MagicType.Emotions:
+            case MagicType.Code:
+            case MagicType.Control:
+            case MagicType.MainHeroDirector:
                 return MagicTheme.Divine;
                 
             default:
