@@ -1,454 +1,255 @@
 using UnityEngine;
-using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Система генерации и кастомизации персонажей
-/// Позволяет создавать любых персонажей со случайной магией из огромного ассортимента
-/// </summary>
 public class CharacterGenerator : MonoBehaviour
 {
-    [Header("Generation Settings")]
-    [SerializeField] private bool useRandomSeed = true;
-    [SerializeField] private int randomSeed = -1;
-    
-    [Header("Race Probabilities")]
-    [SerializeField] private float commonRaceChance = 70f; // Человек, Амальгама, Аномалия
-    [SerializeField] private float rareRaceChance = 20f;   // Марионетка, Хаос расы
-    [SerializeField] private float legendaryRaceChance = 9.9f; // Дети Богов
-    [SerializeField] private float mythicRaceChance = 0.1f;    // Божество
-    
-    [Header("Magic Distribution")]
-    [SerializeField] private int minTechniquesCount = 1;
-    [SerializeField] private int maxTechniquesCount = 3;
-    [SerializeField] private bool allowDivineMagic = false; // Только для высших рас
-    
-    [Header("References")]
-    private EnergySystem energySystem;
-    private MagicSystem magicSystem;
-    private RaceSystem raceSystem;
-    private SoulUI soulUI;
-    
-    // Все доступные техники по темам
-    private static readonly Dictionary<MagicTheme, List<MagicType>> techniquesByTheme = 
-        new Dictionary<MagicTheme, List<MagicType>>
+    [System.Serializable]
+    public class MagicData
     {
-        { MagicTheme.Element, new List<MagicType> 
-            { MagicType.Fire, MagicType.Water, MagicType.Ice, MagicType.Cosmos, 
-              MagicType.Acid, MagicType.Nature, MagicType.Sand, MagicType.Air, 
-              MagicType.Lightning, MagicType.Darkness } },
+        public string name;
+        public MagicTheme theme;
+        public string description;
+    }
+
+    private static readonly List<MagicData> allMagics = new List<MagicData>
+    {
+        // Стихия
+        new MagicData { name = "Огонь", theme = MagicTheme.Element, description = "Управление огнем" },
+        new MagicData { name = "Вода", theme = MagicTheme.Element, description = "Управление водой" },
+        new MagicData { name = "Лед", theme = MagicTheme.Element, description = "Управление льдом" },
+        new MagicData { name = "Молния", theme = MagicTheme.Element, description = "Управление молнией" },
+        new MagicData { name = "Земля", theme = MagicTheme.Element, description = "Управление землей" },
+        new MagicData { name = "Ветер", theme = MagicTheme.Element, description = "Управление ветром" },
+        new MagicData { name = "Тьма", theme = MagicTheme.Element, description = "Управление тьмой" },
+        new MagicData { name = "Свет", theme = MagicTheme.Element, description = "Управление светом" },
+        new MagicData { name = "Кислота", theme = MagicTheme.Element, description = "Управление кислотой" },
+        new MagicData { name = "Природа", theme = MagicTheme.Element, description = "Управление растениями" },
         
-        { MagicTheme.Technical, new List<MagicType> 
-            { MagicType.RealityHacker, MagicType.Surgery, 
-              MagicType.RobotControl, MagicType.Laser } },
+        // Техническая
+        new MagicData { name = "Хакер Реальности", theme = MagicTheme.Technical, description = "Взлом реальности" },
+        new MagicData { name = "Хирургия", theme = MagicTheme.Technical, description = "Биологические манипуляции" },
+        new MagicData { name = "Робототехника", theme = MagicTheme.Technical, description = "Управление механизмами" },
+        new MagicData { name = "Лазер", theme = MagicTheme.Technical, description = "Энергетические лучи" },
+        new MagicData { name = "Кибернетика", theme = MagicTheme.Technical, description = "Технологические улучшения" },
         
-        { MagicTheme.Space, new List<MagicType> 
-            { MagicType.Gravity, MagicType.Telekinesis, MagicType.Teleport } },
+        // Пространство
+        new MagicData { name = "Гравитация", theme = MagicTheme.Space, description = "Контроль гравитации" },
+        new MagicData { name = "Телекинез", theme = MagicTheme.Space, description = "Перемещение объектов" },
+        new MagicData { name = "Телепортация", theme = MagicTheme.Space, description = "Мгновенное перемещение" },
+        new MagicData { name = "Порталы", theme = MagicTheme.Space, description = "Создание проходов" },
         
-        { MagicTheme.Time, new List<MagicType> 
-            { MagicType.TimeReturn, MagicType.Chronos, 
-              MagicType.Skip, MagicType.Acceleration } },
+        // Время
+        new MagicData { name = "Ускорение", theme = MagicTheme.Time, description = "Ускорение времени" },
+        new MagicData { name = "Замедление", theme = MagicTheme.Time, description = "Замедление времени" },
+        new MagicData { name = "Пауза", theme = MagicTheme.Time, description = "Остановка времени" },
+        new MagicData { name = "Возврат", theme = MagicTheme.Time, description = "Возврат во времени" },
         
-        { MagicTheme.Special, new List<MagicType> 
-            { MagicType.Healing, MagicType.Vampirism, 
-              MagicType.EnergyMelting, MagicType.Explosions, MagicType.Slashes } },
+        // Особая
+        new MagicData { name = "Исцеление", theme = MagicTheme.Special, description = "Восстановление здоровья" },
+        new MagicData { name = "Вампиризм", theme = MagicTheme.Special, description = "Кража жизненной силы" },
+        new MagicData { name = "Взрыв", theme = MagicTheme.Special, description = "Создание взрывов" },
+        new MagicData { name = "Разрез", theme = MagicTheme.Special, description = "Создание разрезов" },
+        new MagicData { name = "Барьер", theme = MagicTheme.Special, description = "Создание защитных полей" },
         
-        { MagicTheme.Divine, new List<MagicType> 
-            { MagicType.Creation, MagicType.Destruction, 
-              MagicType.Control, MagicType.Mind, MagicType.Negation } }
+        // Божественная
+        new MagicData { name = "Созидание", theme = MagicTheme.Divine, description = "Создание материи" },
+        new MagicData { name = "Разрушение", theme = MagicTheme.Divine, description = "Разрушение материи" },
+        new MagicData { name = "Контроль", theme = MagicTheme.Divine, description = "Контроль разума" },
+        new MagicData { name = "Отрицание", theme = MagicTheme.Divine, description = "Отмена магии" }
     };
-    
-    private void Start()
+
+    private static readonly List<EnergyType> distortedEnergies = new List<EnergyType>
     {
-        energySystem = GetComponent<EnergySystem>();
-        magicSystem = GetComponent<MagicSystem>();
-        raceSystem = GetComponent<RaceSystem>();
-        soulUI = GetComponent<SoulUI>();
-        
-        if (useRandomSeed && randomSeed == -1)
-        {
-            randomSeed = UnityEngine.Random.Range(0, int.MaxValue);
-        }
-        UnityEngine.Random.InitState(randomSeed);
+        EnergyType.Chi,
+        EnergyType.Cursed,
+        EnergyType.Physical,
+        EnergyType.Custom1,
+        EnergyType.Custom2,
+        EnergyType.Custom3
+    };
+
+    public void Start()
+    {
+        GenerateCharacter();
     }
-    
-    /// <summary>
-    /// Создать случайного персонажа
-    /// </summary>
-    public void GenerateRandomCharacter()
+
+    public void GenerateCharacter()
     {
-        Debug.Log($"=== Генерация персонажа (Seed: {randomSeed}) ===");
-        
-        // 1. Выбираем расу
-        RaceType selectedRace = SelectRandomRace();
-        raceSystem.SetRace(selectedRace);
-        Debug.Log($"Выбрана раса: {selectedRace}");
-        
-        // 2. Настраиваем энергию в зависимости от расы
-        ConfigureEnergyForRace(selectedRace);
-        
-        // 3. Выбираем случайные техники
-        int techniquesCount = UnityEngine.Random.Range(minTechniquesCount, maxTechniquesCount + 1);
-        List<MagicType> selectedTechniques = SelectRandomTechniques(techniquesCount, selectedRace);
-        
-        foreach (var technique in selectedTechniques)
+        RaceType race = RollRace();
+        EnergyType primaryEnergy = GetPrimaryEnergy(race);
+        EnergyType secondaryEnergy = GetSecondaryEnergy(race);
+        EnergyType tertiaryEnergy = GetTertiaryEnergy(race);
+        MagicData magic = RollMagic(race, primaryEnergy);
+        bool hasSpecialAbility = CanUseSpecialAbility(race, primaryEnergy);
+
+        Debug.Log($"Сгенерирован персонаж:");
+        Debug.Log($"Раса: {race}");
+        Debug.Log($"Основная энергия: {primaryEnergy}");
+        if (secondaryEnergy != EnergyType.None)
+            Debug.Log($"Вторичная энергия: {secondaryEnergy}");
+        if (tertiaryEnergy != EnergyType.None)
+            Debug.Log($"Третичная энергия: {tertiaryEnergy}");
+        Debug.Log($"Магия: {magic.name} ({magic.theme})");
+        Debug.Log($"Особый прием доступен: {hasSpecialAbility}");
+
+        PlayerController player = GetComponent<PlayerController>();
+        if (player != null)
         {
-            magicSystem.LearnTechnique(technique);
-            Debug.Log($"Изучена техника: {technique}");
+            player.Initialize(race, primaryEnergy, secondaryEnergy, tertiaryEnergy, magic.name, hasSpecialAbility);
         }
-        
-        // 4. Проверяем возможность пробуждения
-        CheckAwakeningPossibility(selectedRace);
-        
-        // 5. Обновляем UI
-        UpdateSoulUI(selectedRace);
-        
-        Debug.Log("=== Генерация завершена ===");
     }
-    
-    /// <summary>
-    /// Выбрать случайную расу на основе вероятностей
-    /// </summary>
-    private RaceType SelectRandomRace()
+
+    private RaceType RollRace()
     {
-        float roll = UnityEngine.Random.Range(0f, 100f);
-        
-        if (roll < commonRaceChance)
-        {
-            // Обычные расы: Человек, Амальгама, Аномалия
-            return SelectFromCommonRaces();
-        }
-        else if (roll < commonRaceChance + rareRaceChance)
-        {
-            // Редкие расы: Марионетка, Расы хаоса
-            return SelectFromRareRaces();
-        }
-        else if (roll < commonRaceChance + rareRaceChance + legendaryRaceChance)
-        {
-            // Легендарные: Дети Богов
-            return SelectFromLegendaryRaces();
-        }
+        float roll = Random.value * 100f;
+
+        if (roll < 0.1f)
+            return RollGodRace();
+        else if (roll < 10f)
+            return RollRareRace();
+        else if (roll < 30f)
+            return RollUncommonRace();
         else
-        {
-            // Мифические: Божество
-            return RaceType.Deity;
-        }
+            return RollCommonRace();
     }
-    
-    private RaceType SelectFromCommonRaces()
+
+    private RaceType RollGodRace()
     {
-        float roll = UnityEngine.Random.Range(0f, 100f);
-        if (roll < 40f) return RaceType.Human;
-        if (roll < 70f) return RaceType.Amalgam;
-        return RaceType.Anomaly;
+        return (RaceType)Random.Range((int)RaceType.SystemicHuman, (int)RaceType.Deity + 1);
     }
-    
-    private RaceType SelectFromRareRaces()
+
+    private RaceType RollRareRace()
     {
-        float roll = UnityEngine.Random.Range(0f, 100f);
-        if (roll < 20f) return RaceType.Marionette;
-        if (roll < 40f) return RaceType.PrisonerHuman;
-        if (roll < 60f) return RaceType.SeparatedAmalgam;
-        if (roll < 80f) return RaceType.FormedAnomaly;
-        if (roll < 90f) return RaceType.ChaosDistortedEnergy;
-        return RaceType.ChaosNoEnergy;
+        return (RaceType)Random.Range((int)RaceType.SealedHuman, (int)RaceType.FormedAnomaly + 1);
     }
-    
-    private RaceType SelectFromLegendaryRaces()
+
+    private RaceType RollUncommonRace()
     {
-        float roll = UnityEngine.Random.Range(0f, 100f);
-        if (roll < 50f) return RaceType.FirstOrderGodChild;
-        return RaceType.SecondOrderGodChild;
+        return (RaceType)Random.Range((int)RaceType.Amalgama, (int)RaceType.Puppet + 1);
     }
-    
-    /// <summary>
-    /// Настроить энергию для выбранной расы
-    /// </summary>
-    private void ConfigureEnergyForRace(RaceType race)
+
+    private RaceType RollCommonRace()
+    {
+        return RaceType.Human;
+    }
+
+    private EnergyType GetPrimaryEnergy(RaceType race)
     {
         switch (race)
         {
             case RaceType.Human:
-                energySystem.SetEnergyType(EnergyType.Human);
-                break;
-                
-            case RaceType.Amalgam:
-                energySystem.SetEnergyType(EnergyType.Amalgam);
-                // Амальгамы получают 2 техники автоматически
-                break;
-                
+                return EnergyType.Human;
+            case RaceType.Amalgama:
+                return EnergyType.Amalgama;
             case RaceType.Anomaly:
-                energySystem.SetEnergyType(EnergyType.Anomaly);
-                break;
-                
-            case RaceType.Marionette:
-                energySystem.SetEnergyType(EnergyType.None);
-                break;
-                
-            case RaceType.PrisonerHuman:
-            case RaceType.SeparatedAmalgam:
+                return EnergyType.Anomaly;
+            case RaceType.Puppet:
+                return RandomEnumValue<EnergyType>();
+            case RaceType.SealedHuman:
+                return EnergyType.Amalgama;
+            case RaceType.SeparatedAmalgama:
+                return EnergyType.Human;
             case RaceType.FormedAnomaly:
-            case RaceType.ChaosDistortedEnergy:
-                energySystem.SetEnergyType(EnergyType.Chaos);
-                break;
-                
-            case RaceType.ChaosNoEnergy:
-                energySystem.SetEnergyType(EnergyType.None);
-                break;
-                
-            case RaceType.FirstOrderGodChild:
+                return EnergyType.Human;
+            case RaceType.DistortedChaos:
+                return distortedEnergies[Random.Range(0, distortedEnergies.Count)];
+            case RaceType.EnergylessChaos:
+                return EnergyType.None;
+            case RaceType.SystemicHuman:
             case RaceType.SecondOrderGodChild:
+                return EnergyType.Human;
             case RaceType.Deity:
-                energySystem.SetEnergyType(EnergyType.Pranic);
-                allowDivineMagic = true;
-                break;
+                return EnergyType.Pranic;
+            default:
+                return EnergyType.Human;
         }
     }
-    
-    /// <summary>
-    /// Выбрать случайные техники с учетом расы
-    /// </summary>
-    private List<MagicType> SelectRandomTechniques(int count, RaceType race)
+
+    private EnergyType GetSecondaryEnergy(RaceType race)
     {
-        List<MagicType> availableTechniques = new List<MagicType>();
-        
-        // Определяем доступные темы в зависимости от расы
-        List<MagicTheme> availableThemes = GetAvailableThemesForRace(race);
-        
-        foreach (var theme in availableThemes)
-        {
-            if (techniquesByTheme.ContainsKey(theme))
-            {
-                availableTechniques.AddRange(techniquesByTheme[theme]);
-            }
-        }
-        
-        // Если раса позволяет божественную магию
-        if (allowDivineMagic || race == RaceType.Deity)
-        {
-            availableTechniques.AddRange(techniquesByTheme[MagicTheme.Divine]);
-        }
-        
-        // Случайный выбор техник
-        List<MagicType> selected = new List<MagicType>();
-        for (int i = 0; i < count && availableTechniques.Count > 0; i++)
-        {
-            int index = UnityEngine.Random.Range(0, availableTechniques.Count);
-            MagicType selectedTechnique = availableTechniques[index];
-            
-            if (!selected.Contains(selectedTechnique))
-            {
-                selected.Add(selectedTechnique);
-                availableTechniques.RemoveAt(index);
-            }
-        }
-        
-        // Особые правила для рас
-        if (race == RaceType.Amalgam && selected.Count >= 2)
-        {
-            // Амальгамы могут создавать гибриды из первых двух техник
-            Debug.Log($"Амальгама может создать гибрид: {selected[0]} + {selected[1]}");
-        }
-        
-        return selected;
-    }
-    
-    /// <summary>
-    /// Получить доступные темы магии для расы
-    /// </summary>
-    private List<MagicTheme> GetAvailableThemesForRace(RaceType race)
-    {
-        List<MagicTheme> themes = new List<MagicTheme>();
-        
         switch (race)
         {
-            case RaceType.Human:
-                // Люди могут использовать любые техники, кроме божественных
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Technical);
-                themes.Add(MagicTheme.Space);
-                themes.Add(MagicTheme.Time);
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.Amalgam:
-                // Амальгамы предпочитают стихийные и технические
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Technical);
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.Anomaly:
-                // Аномалии сильны в пространстве и времени
-                themes.Add(MagicTheme.Space);
-                themes.Add(MagicTheme.Time);
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.Marionette:
-                // Марионетки не имеют своей магии
-                break;
-                
-            case RaceType.PrisonerHuman:
-                // Заключенные люди имеют доступ ко всему
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Technical);
-                themes.Add(MagicTheme.Space);
-                themes.Add(MagicTheme.Time);
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.SeparatedAmalgam:
-                // Раздельные амальгамы: человек + аномалия
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Space);
-                themes.Add(MagicTheme.Time);
-                break;
-                
+            case RaceType.SealedHuman:
+                return EnergyType.Anomaly;
+            case RaceType.SeparatedAmalgama:
+                return EnergyType.Anomaly;
             case RaceType.FormedAnomaly:
-                // Сформированные аномалии могут создавать предметы
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Technical);
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.ChaosDistortedEnergy:
-            case RaceType.ChaosNoEnergy:
-                // Хаос расы имеют уникальные техники
-                themes.Add(MagicTheme.Special);
-                break;
-                
-            case RaceType.FirstOrderGodChild:
-            case RaceType.SecondOrderGodChild:
-            case RaceType.Deity:
-                // Высшие расы имеют доступ ко всем темам
-                themes.Add(MagicTheme.Element);
-                themes.Add(MagicTheme.Technical);
-                themes.Add(MagicTheme.Space);
-                themes.Add(MagicTheme.Time);
-                themes.Add(MagicTheme.Special);
-                themes.Add(MagicTheme.Divine);
-                break;
-        }
-        
-        return themes;
-    }
-    
-    /// <summary>
-    /// Проверить возможность пробуждения
-    /// </summary>
-    private void CheckAwakeningPossibility(RaceType race)
-    {
-        // Некоторые расы могут быть пробуждены
-        if (race == RaceType.ChaosNoEnergy || 
-            race == RaceType.SeparatedAmalgam ||
-            race == RaceType.Human ||
-            race == RaceType.Amalgam ||
-            race == RaceType.Anomaly)
-        {
-            Debug.Log($"Раса {race} способна к пробуждению!");
+                return Random.value > 0.5f ? EnergyType.Amalgama : EnergyType.Anomaly;
+            default:
+                return EnergyType.None;
         }
     }
-    
-    /// <summary>
-    /// Обновить Soul UI в зависимости от расы
-    /// </summary>
-    private void UpdateSoulUI(RaceType race)
+
+    private EnergyType GetTertiaryEnergy(RaceType race)
     {
-        // Проверка на наличие магии
-        if (magicSystem != null && magicSystem.CanUseMagic())
+        if (race == RaceType.FormedAnomaly)
         {
-            soulUI.CheckMagicAvailability();
+            return Random.value > 0.5f ? EnergyType.Amalgama : EnergyType.Anomaly;
         }
-        
-        // Если это Божество, добавить божественные кнопки
-        if (race == RaceType.Deity)
+        return EnergyType.None;
+    }
+
+    private MagicData RollMagic(RaceType race, EnergyType primaryEnergy)
+    {
+        if (primaryEnergy == EnergyType.None && race != RaceType.EnergylessChaos)
         {
-            soulUI.AscendToDeity(8); // Вселенная #8
+            return allMagics[Random.Range(0, allMagics.Count)];
+        }
+
+        if (race == RaceType.DistortedChaos)
+        {
+            return allMagics[Random.Range(0, allMagics.Count)];
+        }
+
+        List<MagicData> validMagics = new List<MagicData>();
+        foreach (var magic in allMagics)
+        {
+            if (IsMagicCompatible(magic.theme, primaryEnergy))
+            {
+                validMagics.Add(magic);
+            }
+        }
+
+        if (validMagics.Count == 0)
+            return allMagics[Random.Range(0, allMagics.Count)];
+
+        return validMagics[Random.Range(0, validMagics.Count)];
+    }
+
+    private bool IsMagicCompatible(MagicTheme theme, EnergyType energy)
+    {
+        return true;
+    }
+
+    private bool CanUseSpecialAbility(RaceType race, EnergyType primaryEnergy)
+    {
+        if (primaryEnergy == EnergyType.None)
+            return false;
+
+        switch (race)
+        {
+            case RaceType.SealedHuman:
+            case RaceType.SeparatedAmalgama:
+            case RaceType.FormedAnomaly:
+                return true;
+            default:
+                return primaryEnergy != EnergyType.None;
         }
     }
-    
-    /// <summary>
-    /// Создать технику на основе типа энергии
-    /// </summary>
-    public MagicTechnique CreateSpellFromEnergy(EnergyType energyType, MagicTheme theme)
+
+    private T RandomEnumValue<T>() where T : System.Enum
     {
-        string spellName = "";
-        int manaCost = 10;
-        
-        switch (energyType)
-        {
-            case EnergyType.Human:
-                // Человеческая энергия создает техники "огнем"
-                spellName = $"Огненная {theme} техника";
-                manaCost = 15;
-                break;
-                
-            case EnergyType.Amalgam:
-                // Амальгамная энергия позволяет создавать гибриды
-                spellName = $"Гибридная {theme} техника";
-                manaCost = 20;
-                break;
-                
-            case EnergyType.Anomaly:
-                // Аномальная энергия "растворяет" технику
-                spellName = $"Растворенная {theme} техника";
-                manaCost = 25;
-                break;
-                
-            case EnergyType.Pranic:
-                // Праническая энергия - божественное творение
-                spellName = $"Божественная {theme} техника";
-                manaCost = 50;
-                break;
-                
-            case EnergyType.Chaos:
-                // Хаотическая энергия - непредсказуемый эффект
-                spellName = $"Хаотическая {theme} техника";
-                manaCost = 30;
-                break;
-        }
-        
-        return new MagicTechnique(spellName, MagicType.Special, theme, manaCost);
+        var values = System.Enum.GetValues(typeof(T));
+        return (T)values.GetValue(Random.Range(0, values.Length));
     }
-    
-    /// <summary>
-    /// Получить статистику сгенерированного персонажа
-    /// </summary>
-    public string GetCharacterStats()
+
+    public void RerollDistortedEnergy()
     {
-        string stats = "=== СТАТИСТИКА ПЕРСОНАЖА ===\n\n";
-        
-        if (raceSystem != null)
+        PlayerController player = GetComponent<PlayerController>();
+        if (player != null && player.race == RaceType.DistortedChaos)
         {
-            stats += raceSystem.GetRaceInfo() + "\n";
+            player.primaryEnergy = distortedEnergies[Random.Range(0, distortedEnergies.Count)];
+            Debug.Log($"Энергия хаоса изменена на: {player.primaryEnergy}");
         }
-        
-        if (energySystem != null)
-        {
-            stats += energySystem.GetEnergyInfo() + "\n";
-        }
-        
-        if (magicSystem != null)
-        {
-            stats += magicSystem.GetMagicInfo() + "\n";
-        }
-        
-        if (soulUI != null)
-        {
-            stats += soulUI.GetAvailableButtonsInfo() + "\n";
-        }
-        
-        return stats;
-    }
-    
-    /// <summary>
-    /// Сбросить генератор и создать нового персонажа
-    /// </summary>
-    public void RerollCharacter()
-    {
-        randomSeed = UnityEngine.Random.Range(0, int.MaxValue);
-        UnityEngine.Random.InitState(randomSeed);
-        GenerateRandomCharacter();
     }
 }

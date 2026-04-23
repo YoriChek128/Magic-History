@@ -1,342 +1,253 @@
 using UnityEngine;
 
-/// <summary>
-/// Пример управления персонажем в игре
-/// Этот скрипт демонстрирует, как использовать все системы вместе
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Header("References")]
-    private EnergySystem energySystem;
-    private MagicSystem magicSystem;
-    private RaceSystem raceSystem;
-    private SoulUI soulUI;
+    public RaceType race;
+    public EnergyType primaryEnergy;
+    public EnergyType secondaryEnergy;
+    public EnergyType tertiaryEnergy;
+    public string magicName;
+    public bool hasSpecialAbility;
+    
     private CharacterGenerator characterGenerator;
+    private CombatSystem combatSystem;
     
-    [Header("Input Settings")]
-    [SerializeField] private KeyCode attackKey = KeyCode.Mouse0;
-    [SerializeField] private KeyCode defendKey = KeyCode.Mouse1;
-    [SerializeField] private KeyCode magicKey = KeyCode.E;
-    [SerializeField] private KeyCode specialAbilityKey = KeyCode.Q;
-    [SerializeField] private KeyCode interactKey = KeyCode.F;
-    [SerializeField] private KeyCode mercyKey = KeyCode.T;
+    [Header("Combat Settings")]
+    public float meleeRange = 2f;
+    public float rangedSpeed = 10f;
+    public float rangedDamage = 10f;
+    public float meleeDamage = 5f;
     
-    [Header("Camera")]
-    [SerializeField] private Camera mainCamera;
+    [Header("References")]
+    public Transform attackPoint;
+    public GameObject rangedProjectilePrefab;
+    public LayerMask enemyLayers;
     
-    private void Start()
+    void Start()
     {
-        // Получаем компоненты
-        energySystem = GetComponent<EnergySystem>();
-        magicSystem = GetComponent<MagicSystem>();
-        raceSystem = GetComponent<RaceSystem>();
-        soulUI = GetComponent<SoulUI>();
         characterGenerator = GetComponent<CharacterGenerator>();
+        combatSystem = GetComponent<CombatSystem>();
         
-        if (mainCamera == null)
+        if (attackPoint == null)
         {
-            mainCamera = Camera.main;
+            attackPoint = transform;
         }
-        
-        Debug.Log("=== Игрок готов ===");
-        Debug.Log("Нажмите G для генерации случайного персонажа");
-        Debug.Log("Нажмите R для перегенерации");
     }
     
-    private void Update()
+    void Update()
     {
-        HandleGenerationInput();
         HandleCombatInput();
-        HandleInteractionInput();
+        HandleSpecialInput();
     }
     
-    /// <summary>
-    /// Управление генерацией персонажа
-    /// </summary>
-    private void HandleGenerationInput()
+    void HandleCombatInput()
     {
-        // Генерация случайного персонажа
-        if (Input.GetKeyDown(KeyCode.G))
+        // ЛКМ - Атака ближнего боя
+        if (Input.GetMouseButtonDown(0))
         {
-            if (characterGenerator != null)
-            {
-                characterGenerator.GenerateRandomCharacter();
-                Debug.Log(characterGenerator.GetCharacterStats());
-            }
+            PerformMeleeAttack();
         }
         
-        // Перегенерация
-        if (Input.GetKeyDown(KeyCode.R))
+        // ПКМ - Атака дальнего боя
+        if (Input.GetMouseButtonDown(1))
         {
-            if (characterGenerator != null)
-            {
-                characterGenerator.RerollCharacter();
-                Debug.Log(characterGenerator.GetCharacterStats());
-            }
+            PerformRangedAttack();
+        }
+        
+        // Пробел - Защита
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PerformDefense();
         }
     }
     
-    /// <summary>
-    /// Боевое управление
-    /// </summary>
-    private void HandleCombatInput()
+    void HandleSpecialInput()
     {
-        // Атака [Атака]
-        if (Input.GetKeyDown(attackKey))
-        {
-            PerformAttack();
-        }
-        
-        // Защита [Защита]
-        if (Input.GetKeyDown(defendKey))
-        {
-            PerformDefend();
-        }
-        
-        // Магия [Магия]
-        if (Input.GetKeyDown(magicKey))
+        // E - Магия
+        if (Input.GetKeyDown(KeyCode.E))
         {
             UseMagic();
         }
         
-        // Особый прием расы
-        if (Input.GetKeyDown(specialAbilityKey))
+        // Q - Особый прием (только если есть энергия)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             UseSpecialAbility();
         }
-    }
-    
-    /// <summary>
-    /// Взаимодействие с миром
-    /// </summary>
-    private void HandleInteractionInput()
-    {
-        // Действие [Действие]
-        if (Input.GetKeyDown(interactKey))
+        
+        // F - Действие
+        if (Input.GetKeyDown(KeyCode.F))
         {
             PerformAction();
         }
         
-        // Пощада [Пощада]
-        if (Input.GetKeyDown(mercyKey))
+        // T - Пощада
+        if (Input.GetKeyDown(KeyCode.T))
         {
             ShowMercy();
         }
+        
+        // O - Перекрутить энергию (только для DistortedChaos)
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            RerollDistortedEnergy();
+        }
     }
     
-    /// <summary>
-    /// Выполнить атаку
-    /// </summary>
-    private void PerformAttack()
+    void PerformMeleeAttack()
     {
-        Vector3 targetPosition = GetTargetPosition();
+        Debug.Log("Атака ближнего боя!");
         
-        // Используем кнопку [Атака] из Soul UI
-        if (soulUI != null)
+        if (combatSystem != null)
         {
-            soulUI.PressButton(SoulUIButtonType.Attack, targetPosition, 10);
+            combatSystem.PerformMeleeAttack(meleeDamage, meleeRange);
         }
         
-        // Здесь можно добавить анимацию атаки, рейкасты и т.д.
-        Debug.Log($"Атака в точку: {targetPosition}");
+        // Визуальный эффект атаки
+        PerformMeleeVisualEffect();
     }
     
-    /// <summary>
-    /// Выполнить защиту
-    /// </summary>
-    private void PerformDefend()
+    void PerformRangedAttack()
     {
-        if (soulUI != null)
+        Debug.Log("Атака дальнего боя!");
+        
+        if (rangedProjectilePrefab != null && combatSystem != null)
         {
-            soulUI.PressButton(SoulUIButtonType.Defend, gameObject, 5);
-        }
-        
-        Debug.Log("Активирована защита!");
-    }
-    
-    /// <summary>
-    /// Использовать магию
-    /// </summary>
-    private void UseMagic()
-    {
-        if (magicSystem == null || !magicSystem.CanUseMagic())
-        {
-            Debug.LogWarning("Магия недоступна!");
-            return;
-        }
-        
-        Vector3 targetPosition = GetTargetPosition();
-        
-        // Используем первую известную технику для примера
-        // В реальной игре здесь должен быть выбор техники из меню
-        MagicType techniqueToUse = GetFirstKnownTechnique();
-        
-        if (techniqueToUse != MagicType.None)
-        {
-            magicSystem.UseTechnique(techniqueToUse, targetPosition);
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition.z = 0;
             
-            // Также можно вызвать через Soul UI
-            if (soulUI != null)
-            {
-                soulUI.PressButton(SoulUIButtonType.Magic, techniqueToUse, targetPosition);
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Использовать особый прием расы
-    /// </summary>
-    private void UseSpecialAbility()
-    {
-        if (raceSystem == null)
-        {
-            Debug.LogWarning("RaceSystem не найден!");
-            return;
-        }
-        
-        // Пример параметров для разных рас
-        object[] parameters = new object[] { GetTargetPosition(), 5f };
-        
-        bool success = raceSystem.UseSpecialAbility(parameters);
-        
-        if (success)
-        {
-            Debug.Log($"Особый прием расы {raceSystem.CurrentRaceType} использован!");
-        }
-    }
-    
-    /// <summary>
-    /// Выполнить действие
-    /// </summary>
-    private void PerformAction()
-    {
-        if (soulUI != null)
-        {
-            soulUI.PressButton(SoulUIButtonType.Action);
-        }
-        
-        Debug.Log("Взаимодействие с миром...");
-        
-        // Здесь может быть логика взаимодействия с объектами
-        // Raycast, диалоги, поднятие предметов и т.д.
-    }
-    
-    /// <summary>
-    /// Показать пощаду
-    /// </summary>
-    private void ShowMercy()
-    {
-        if (soulUI != null)
-        {
-            soulUI.PressButton(SoulUIButtonType.Mercy);
-        }
-        
-        Debug.Log("Попытка переговоров...");
-        
-        // Логика дипломатии/переговоров с врагами
-    }
-    
-    /// <summary>
-    /// Получить позицию цели (курсор мыши в мире)
-    /// </summary>
-    private Vector3 GetTargetPosition()
-    {
-        if (mainCamera == null) return Vector3.zero;
-        
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            return hit.point;
-        }
-        
-        // Если не попали в объект, используем точку перед камерой
-        return ray.GetPoint(10f);
-    }
-    
-    /// <summary>
-    /// Получить первую известную технику
-    /// </summary>
-    private MagicType GetFirstKnownTechnique()
-    {
-        // В реальной игре здесь должен быть UI выбора техники
-        // Для примера просто возвращаем Огонь если доступен
-        if (magicSystem != null && magicSystem.IsTechniqueKnown(MagicType.Fire))
-        {
-            return MagicType.Fire;
-        }
-        
-        // Или любую другую доступную технику
-        return MagicType.Special;
-    }
-    
-    /// <summary>
-    /// Открыть Аномальную зону (для Аномалий)
-    /// </summary>
-    public void OpenAnomalyZone(AnomalyZoneType zoneType)
-    {
-        if (magicSystem == null)
-        {
-            Debug.LogWarning("MagicSystem не найден!");
-            return;
-        }
-        
-        Vector3 centerPosition = transform.position + transform.forward * 5f;
-        float radius = 10f;
-        
-        bool success = magicSystem.OpenZone(zoneType, centerPosition, radius);
-        
-        if (success)
-        {
-            Debug.Log($"Открыта Аномальная зона: {zoneType}");
+            combatSystem.PerformRangedAttack(rangedProjectilePrefab, targetPosition, rangedSpeed, rangedDamage);
         }
         else
         {
-            Debug.LogWarning("Не удалось открыть зону!");
+            // Если нет префаба, создаем простой снаряд
+            CreateSimpleProjectile();
         }
     }
     
-    /// <summary>
-    /// Пробудить персонажа (если возможно)
-    /// </summary>
-    public void AwakenCharacter()
+    void CreateSimpleProjectile()
     {
-        if (raceSystem == null)
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition.z = 0;
+        
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        
+        Debug.DrawRay(transform.position, direction * 10f, Color.red, 2f);
+        Debug.Log($"Снаряд летит в направлении: {direction}");
+    }
+    
+    void PerformDefense()
+    {
+        Debug.Log("Защита!");
+        
+        if (combatSystem != null)
         {
-            Debug.LogWarning("RaceSystem не найден!");
+            combatSystem.ActivateDefense();
+        }
+    }
+    
+    void UseMagic()
+    {
+        if (primaryEnergy == EnergyType.None)
+        {
+            Debug.Log("Недостаточно энергии для использования магии!");
             return;
         }
         
-        raceSystem.Awaken();
+        Debug.Log($"Использование магии: {magicName}");
+        // Здесь будет логика использования магии
     }
     
-    /// <summary>
-    /// Показать полную статистику персонажа
-    /// </summary>
-    public void ShowFullStats()
+    void UseSpecialAbility()
     {
-        string stats = "=== ПОЛНАЯ СТАТИСТИКА ===\n\n";
-        
-        if (raceSystem != null)
+        if (!hasSpecialAbility)
         {
-            stats += raceSystem.GetRaceInfo() + "\n";
+            Debug.Log("Особый прием недоступен!");
+            return;
         }
         
-        if (energySystem != null)
+        if (primaryEnergy == EnergyType.None)
         {
-            stats += energySystem.GetEnergyInfo() + "\n";
+            Debug.Log("Недостаточно энергии для особого приема!");
+            return;
         }
         
-        if (magicSystem != null)
+        Debug.Log("Использование особого приема!");
+        
+        switch (race)
         {
-            stats += magicSystem.GetMagicInfo() + "\n";
+            case RaceType.SealedHuman:
+                Debug.Log("[Магическая перезапись] - изменение реальности!");
+                break;
+            case RaceType.SeparatedAmalgama:
+                Debug.Log("[Королевская зона] - подавление энергий!");
+                break;
+            case RaceType.FormedAnomaly:
+                Debug.Log("[Кузница техники] - создание предмета!");
+                break;
+            default:
+                Debug.Log("Стандартный особый прием!");
+                break;
+        }
+    }
+    
+    void PerformAction()
+    {
+        Debug.Log("Действие!");
+        // Взаимодействие с миром
+    }
+    
+    void ShowMercy()
+    {
+        Debug.Log("Пощада - отказ от насилия!");
+        // Логика переговоров
+    }
+    
+    void RerollDistortedEnergy()
+    {
+        if (race == RaceType.DistortedChaos)
+        {
+            if (characterGenerator != null)
+            {
+                characterGenerator.RerollDistortedEnergy();
+            }
+        }
+        else
+        {
+            Debug.Log("Только существо хаоса искаженной энергии может менять энергию!");
+        }
+    }
+    
+    void PerformMeleeVisualEffect()
+    {
+        // Создаем эффект атаки ближнего боя
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, meleeRange, enemyLayers);
+        
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.DrawLine(attackPoint.position, enemy.transform.position, Color.red, 0.5f);
         }
         
-        if (soulUI != null)
-        {
-            stats += soulUI.GetAvailableButtonsInfo() + "\n";
-        }
-        
-        Debug.Log(stats);
+        // Визуализация радиуса атаки
+        Debug.DrawCircle(attackPoint.position, meleeRange, Color.yellow, 0.2f);
+    }
+    
+    public void Initialize(RaceType newRace, EnergyType newPrimaryEnergy, 
+                          EnergyType newSecondaryEnergy, EnergyType newTertiaryEnergy,
+                          string newMagicName, bool newHasSpecialAbility)
+    {
+        race = newRace;
+        primaryEnergy = newPrimaryEnergy;
+        secondaryEnergy = newSecondaryEnergy;
+        tertiaryEnergy = newTertiaryEnergy;
+        magicName = newMagicName;
+        hasSpecialAbility = newHasSpecialAbility;
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        // Отрисовка радиуса атаки в редакторе
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(attackPoint != null ? attackPoint.position : transform.position, meleeRange);
     }
 }
