@@ -107,16 +107,6 @@ public class CharacterGenerator : MonoBehaviour
         new MagicData { name = "Режиссура Главного Героя", theme = MagicTheme.Divine, description = "Управление сюжетом" }
     };
 
-    private static readonly List<EnergyType> distortedEnergies = new List<EnergyType>
-    {
-        EnergyType.Chi,
-        EnergyType.Cursed,
-        EnergyType.Physical,
-        EnergyType.Custom1,
-        EnergyType.Custom2,
-        EnergyType.Custom3
-    };
-
     public void Start()
     {
         GenerateCharacter();
@@ -164,17 +154,17 @@ public class CharacterGenerator : MonoBehaviour
 
     private RaceType RollGodRace()
     {
-        return (RaceType)Random.Range((int)RaceType.SystemicHuman, (int)RaceType.Deity + 1);
+        return (RaceType)Random.Range((int)RaceType.FirstOrderGodChild, (int)RaceType.Deity + 1);
     }
 
     private RaceType RollRareRace()
     {
-        return (RaceType)Random.Range((int)RaceType.SealedHuman, (int)RaceType.FormedAnomaly + 1);
+        return (RaceType)Random.Range((int)RaceType.PrisonerHuman, (int)RaceType.FormedAnomaly + 1);
     }
 
     private RaceType RollUncommonRace()
     {
-        return (RaceType)Random.Range((int)RaceType.Amalgama, (int)RaceType.Puppet + 1);
+        return (RaceType)Random.Range((int)RaceType.Amalgam, (int)RaceType.Puppet + 1);
     }
 
     private RaceType RollCommonRace()
@@ -188,23 +178,23 @@ public class CharacterGenerator : MonoBehaviour
         {
             case RaceType.Human:
                 return EnergyType.Human;
-            case RaceType.Amalgama:
-                return EnergyType.Amalgama;
+            case RaceType.Amalgam:
+                return EnergyType.Amalgam;
             case RaceType.Anomaly:
                 return EnergyType.Anomaly;
             case RaceType.Puppet:
                 return RandomEnumValue<EnergyType>();
-            case RaceType.SealedHuman:
-                return EnergyType.Amalgama;
-            case RaceType.SeparatedAmalgama:
+            case RaceType.PrisonerHuman:
+                return EnergyType.Amalgam;
+            case RaceType.SeparatedAmalgam:
                 return EnergyType.Human;
             case RaceType.FormedAnomaly:
                 return EnergyType.Human;
-            case RaceType.DistortedChaos:
-                return distortedEnergies[Random.Range(0, distortedEnergies.Count)];
-            case RaceType.EnergylessChaos:
+            case RaceType.ChaosDistorted:
+                return EnergyType.Chaos;
+            case RaceType.ChaosNoEnergy:
                 return EnergyType.None;
-            case RaceType.SystemicHuman:
+            case RaceType.FirstOrderGodChild:
             case RaceType.SecondOrderGodChild:
                 return EnergyType.Human;
             case RaceType.Deity:
@@ -218,12 +208,12 @@ public class CharacterGenerator : MonoBehaviour
     {
         switch (race)
         {
-            case RaceType.SealedHuman:
+            case RaceType.PrisonerHuman:
                 return EnergyType.Anomaly;
-            case RaceType.SeparatedAmalgama:
+            case RaceType.SeparatedAmalgam:
                 return EnergyType.Anomaly;
             case RaceType.FormedAnomaly:
-                return Random.value > 0.5f ? EnergyType.Amalgama : EnergyType.Anomaly;
+                return Random.value > 0.5f ? EnergyType.Amalgam : EnergyType.Anomaly;
             default:
                 return EnergyType.None;
         }
@@ -233,7 +223,7 @@ public class CharacterGenerator : MonoBehaviour
     {
         if (race == RaceType.FormedAnomaly)
         {
-            return Random.value > 0.5f ? EnergyType.Amalgama : EnergyType.Anomaly;
+            return Random.value > 0.5f ? EnergyType.Amalgam : EnergyType.Anomaly;
         }
         return EnergyType.None;
     }
@@ -254,8 +244,8 @@ public class CharacterGenerator : MonoBehaviour
 
         switch (race)
         {
-            case RaceType.SealedHuman:
-            case RaceType.SeparatedAmalgama:
+            case RaceType.PrisonerHuman:
+            case RaceType.SeparatedAmalgam:
             case RaceType.FormedAnomaly:
                 return true;
             default:
@@ -267,15 +257,5 @@ public class CharacterGenerator : MonoBehaviour
     {
         var values = System.Enum.GetValues(typeof(T));
         return (T)values.GetValue(Random.Range(0, values.Length));
-    }
-
-    public void RerollDistortedEnergy()
-    {
-        PlayerController player = GetComponent<PlayerController>();
-        if (player != null && player.race == RaceType.DistortedChaos)
-        {
-            player.primaryEnergy = distortedEnergies[Random.Range(0, distortedEnergies.Count)];
-            Debug.Log($"Энергия хаоса изменена на: {player.primaryEnergy}");
-        }
     }
 }

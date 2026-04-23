@@ -3,55 +3,55 @@
   "WorkspaceRootPath": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\energysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\energysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\racesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\racesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\magicsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\magicsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\charactergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\charactergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\combat\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\combat\\meleehitbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\combat\\meleehitbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\meleehitbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\combat\\combatsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\combat\\combatsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\combatsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\racesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\racesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\magicsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\magicsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\charactergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\charactergenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\energysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\energysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermove.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\soului.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\soului.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\soului.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\assets\\scripts\\anomalyzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|c:\\users\\\u0435\u0441\u043B\u0438\u0447\u043D\u044B\u0439\\documents\\github\\magic-history\\assets\\scripts\\anomalyzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{549DAE3F-C197-7A4A-5361-7CD94C9A73F7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\anomalyzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -62,11 +62,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Projectile.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\Combat\\Projectile.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\Projectile.cs",
@@ -79,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "MeleeHitbox.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\Combat\\MeleeHitbox.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\MeleeHitbox.cs",
@@ -87,11 +87,12 @@
               "RelativeToolTip": "Assets\\Scripts\\Combat\\MeleeHitbox.cs",
               "ViewState": "AgIAADIAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:30:54.605Z"
+              "WhenOpened": "2026-04-23T06:30:54.605Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "CombatSystem.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\Combat\\CombatSystem.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\CombatSystem.cs",
@@ -99,7 +100,8 @@
               "RelativeToolTip": "Assets\\Scripts\\Combat\\CombatSystem.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:30:47.339Z"
+              "WhenOpened": "2026-04-23T06:30:47.339Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -111,7 +113,8 @@
               "RelativeToolTip": "Assets\\Scripts\\SoulUI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAH8AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:13:29.208Z"
+              "WhenOpened": "2026-04-23T06:13:29.208Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -123,7 +126,8 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerUI.cs",
               "ViewState": "AgIAACEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:12:52.504Z"
+              "WhenOpened": "2026-04-23T06:12:52.504Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -135,7 +139,8 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerStats.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:12:45.484Z"
+              "WhenOpened": "2026-04-23T06:12:45.484Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -147,11 +152,12 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerMove.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:12:38.826Z"
+              "WhenOpened": "2026-04-23T06:12:38.826Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
@@ -159,56 +165,57 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAADgv1cAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:12:26.221Z"
+              "WhenOpened": "2026-04-23T06:12:26.221Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "MagicSystem.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\MagicSystem.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MagicSystem.cs",
               "ToolTip": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\MagicSystem.cs",
               "RelativeToolTip": "Assets\\Scripts\\MagicSystem.cs",
-              "ViewState": "AgIAAMEBAAAAAAAAAAAowNUBAAA7AAAAAAAAAA==",
+              "ViewState": "AgIAAKUAAAAAAAAAAAArwLYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-23T06:12:13.346Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "EnergySystem.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\EnergySystem.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnergySystem.cs",
               "ToolTip": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\EnergySystem.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnergySystem.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAwwC0AAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-23T06:11:56.543Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "RaceSystem.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\RaceSystem.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\RaceSystem.cs",
               "ToolTip": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\RaceSystem.cs",
               "RelativeToolTip": "Assets\\Scripts\\RaceSystem.cs",
-              "ViewState": "AgIAAMsBAAAAAAAAAAAMwN4BAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAOwBAAAAAAAAAAArwAACAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-23T06:12:58.019Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "CharacterGenerator.cs",
               "DocumentMoniker": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\CharacterGenerator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CharacterGenerator.cs",
               "ToolTip": "C:\\Users\\\u0415\u0421\u043B\u0438\u0447\u043D\u044B\u0439\\Documents\\GitHub\\Magic-History\\Assets\\Scripts\\CharacterGenerator.cs",
               "RelativeToolTip": "Assets\\Scripts\\CharacterGenerator.cs",
-              "ViewState": "AgIAAPEAAAAAAAAAAAAjwAMBAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAANsAAAAAAAAAAAAiwPMAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-23T06:11:51.768Z",
               "EditorCaption": ""
@@ -223,7 +230,8 @@
               "RelativeToolTip": "Assets\\Scripts\\AnomalyZone.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T06:11:47.057Z"
+              "WhenOpened": "2026-04-23T06:11:47.057Z",
+              "EditorCaption": ""
             }
           ]
         }

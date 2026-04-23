@@ -452,7 +452,7 @@ public class RaceSystem : MonoBehaviour
         // Магическая перезапись
         if (magicSystem != null && parameters.Length > 0)
         {
-            return magicSystem.MagicalRewrite(MagicType.Special, parameters[0]);
+            return magicSystem.MagicalRewrite(parameters[0]);
         }
         return false;
     }
@@ -475,7 +475,7 @@ public class RaceSystem : MonoBehaviour
         if (magicSystem != null && parameters.Length >= 1)
         {
             string itemName = parameters[0]?.ToString() ?? "Item";
-            GameObject item = magicSystem.ForgeTechniqueItem(MagicType.Special, itemName);
+            GameObject item = magicSystem.ForgeTechniqueItem(itemName);
             return item != null;
         }
         return false;

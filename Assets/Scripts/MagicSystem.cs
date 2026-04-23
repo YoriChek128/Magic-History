@@ -437,7 +437,7 @@ public class MagicSystem : MonoBehaviour
     /// <summary>
     /// [Магическая перезапись] - особый прием Заключенного человека
     /// </summary>
-    public bool MagicalRewrite(MagicType technique, object target)
+    public bool MagicalRewrite(object target)
     {
         // Объединение Аномальной и Амальгамной энергий
         if (energySystem.PrimaryEnergyType != EnergyType.Chaos)
@@ -446,7 +446,7 @@ public class MagicSystem : MonoBehaviour
             return false;
         }
         
-        Debug.Log($"[Магическая перезапись] активирована: {technique}");
+        Debug.Log($"[Магическая перезапись] активирована!");
         // Изменение реальности под правило магии
         return true;
     }
@@ -465,9 +465,9 @@ public class MagicSystem : MonoBehaviour
     /// <summary>
     /// [Кузница техники] - особый прием Сформированной аномалии
     /// </summary>
-    public GameObject ForgeTechniqueItem(MagicType technique, string itemName)
+    public GameObject ForgeTechniqueItem(string itemName)
     {
-        Debug.Log($"[Кузница техники] создается: {itemName} на основе {technique}");
+        Debug.Log($"[Кузница техники] создается: {itemName}");
         // Создание оружия, предмета, артефакта, брони в рамках техники
         return new GameObject(itemName);
     }

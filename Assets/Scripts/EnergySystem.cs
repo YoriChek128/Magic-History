@@ -231,17 +231,6 @@ public class EnergySystem : MonoBehaviour
 
     #region Amalgam Energy Methods
 
-    /// <summary>
-    /// Создать гибридную технику из двух магических типов
-    /// </summary>
-    public MagicType CreateHybridMagic()
-    {
-        if (primaryEnergyType != EnergyType.Amalgam || !canCreateHybrids)
-            return MagicType.None;
-
-        // Логика создания гибрида (упрощенная)
-        return MagicType.Special; // Возвращаем особую технику как гибрид
-    }
 
     /// <summary>
     /// Изменить структуру тела (защита от физических атак без магии)
