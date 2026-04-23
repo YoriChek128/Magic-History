@@ -10,7 +10,7 @@ public enum RaceType
     Human,            // Человек - физическое существо с Человеческой энергией
     Amalgam,          // Амальгама - смежное существо с Амальгамной энергией
     Anomaly,          // Аномалия - нефизические существа с Аномальной энергией
-    Marionette,       // Марионетка - существо на нитях кукловода
+    Puppet,       // Марионетка - существо на нитях кукловода
     
     // Расы хаоса (обратные)
     PrisonerHuman,          // Заключенный человек
@@ -18,7 +18,7 @@ public enum RaceType
     FormedAnomaly,          // Сформированная аномалия
     
     // Прочие расы хаоса
-    ChaosDistortedEnergy,   // Существо хаоса искаженной энергии
+    ChaosDistorted,   // Существо хаоса искаженной энергии
     ChaosNoEnergy,          // Существо хаоса лишенное энергии
     
     // Существ высшего порядка
@@ -98,7 +98,7 @@ public class RaceData
                 specialAbilityDescription = "Владение АЗ: Пустая, Простая, Техническая, Абсолютная.";
                 break;
                 
-            case RaceType.Marionette:
+            case RaceType.Puppet:
                 raceName = "Марионетка";
                 description = "Существо на нитях кукловода. Энергия поступает через нити.";
                 primaryEnergy = EnergyType.None;
@@ -112,8 +112,8 @@ public class RaceData
             case RaceType.PrisonerHuman:
                 raceName = "Заключенный человек";
                 description = "Человек, зажавший самооценку и человеческую энергию. Обладает Амальгамной и Аномальной энергиями.";
-                primaryEnergy = EnergyType.Chaos;
-                additionalEnergies = new EnergyType[] { EnergyType.Amalgam, EnergyType.Anomaly };
+                primaryEnergy = EnergyType.Anomaly;
+                additionalEnergies = new EnergyType[] { EnergyType.Amalgam };
                 soulType = SoulType.Damaged;
                 hasSpecialAbility = true;
                 specialAbilityName = "Магическая перезапись";
@@ -123,8 +123,8 @@ public class RaceData
             case RaceType.SeparatedAmalgam:
                 raceName = "Раздельная амальгама";
                 description = "Нестабильное существо из 5-10 составляющих. Только двое обладают энергиями (Человек + Аномалия).";
-                primaryEnergy = EnergyType.Chaos;
-                additionalEnergies = new EnergyType[] { EnergyType.Human, EnergyType.Anomaly };
+                primaryEnergy = EnergyType.Human;
+                additionalEnergies = new EnergyType[] { EnergyType.Anomaly };
                 soulType = SoulType.Damaged;
                 hasSpecialAbility = true;
                 specialAbilityName = "Королевская зона";
@@ -134,15 +134,15 @@ public class RaceData
             case RaceType.FormedAnomaly:
                 raceName = "Сформированная аномалия";
                 description = "Аномалия, не способная отделяться в свою реальность. Доступны Человеческая и Амальгамная энергии.";
-                primaryEnergy = EnergyType.Chaos;
-                additionalEnergies = new EnergyType[] { EnergyType.Human, EnergyType.Amalgam };
+                primaryEnergy = EnergyType.Amalgam;
+                additionalEnergies = new EnergyType[] { EnergyType.Human };
                 soulType = SoulType.Damaged;
                 hasSpecialAbility = true;
                 specialAbilityName = "Кузница техники";
                 specialAbilityDescription = "Создание любого оружия, предмета, артефакта, брони в рамках своей техники.";
                 break;
                 
-            case RaceType.ChaosDistortedEnergy:
+            case RaceType.ChaosDistorted:
                 raceName = "Существо хаоса искаженной энергии";
                 description = "Душа искаверкана. Обладает уникальной энергией (Ци, Проклятая, Котики, Нитки и т.д.).";
                 primaryEnergy = EnergyType.Chaos;
@@ -222,7 +222,6 @@ public class RaceSystem : MonoBehaviour
     [SerializeField] private bool hasRewriteAccess = false;
     [SerializeField] private int universeID = 8; // Для Системной пары #8
     
-    [Header("Events")]
     public event Action<RaceType> OnRaceChanged;
     public event Action OnAwakening;
     public event Action OnPuppetThreadCut;
@@ -293,7 +292,7 @@ public class RaceSystem : MonoBehaviour
                 }
                 break;
                 
-            case RaceType.Marionette:
+            case RaceType.Puppet:
                 isConnectedToThreads = true;
                 break;
                 
@@ -358,7 +357,7 @@ public class RaceSystem : MonoBehaviour
     /// </summary>
     private void CheckMarionetteStatus()
     {
-        if (currentRace.raceType != RaceType.Marionette) return;
+        if (currentRace.raceType != RaceType.Puppet) return;
         
         if (!isConnectedToThreads)
         {
@@ -372,7 +371,7 @@ public class RaceSystem : MonoBehaviour
     /// </summary>
     public void CutPuppetThreads()
     {
-        if (currentRace.raceType != RaceType.Marionette) return;
+        if (currentRace.raceType != RaceType.Puppet) return;
         
         isConnectedToThreads = false;
         Debug.LogWarning("Нити марионетки перерезаны!");
@@ -383,7 +382,7 @@ public class RaceSystem : MonoBehaviour
     /// </summary>
     public void DealSoulDamage(int damage)
     {
-        if (currentRace.raceType == RaceType.Marionette && puppetMaster != null)
+        if (currentRace.raceType == RaceType.Puppet && puppetMaster != null)
         {
             Debug.Log($"Урон по душе марионетки нанесен кукловоду: {damage}");
             // Нанести урон кукловоду
@@ -511,7 +510,7 @@ public class RaceSystem : MonoBehaviour
         // Логика смерти в зависимости от расы
         switch (currentRace.raceType)
         {
-            case RaceType.Marionette:
+            case RaceType.Puppet:
                 Debug.Log("Марионетка разрушена без возможности восстановления.");
                 break;
                 

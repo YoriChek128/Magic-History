@@ -86,12 +86,6 @@ public class PlayerController : MonoBehaviour
         {
             ShowMercy();
         }
-        
-        // O - Перекрутить энергию (только для DistortedChaos)
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            RerollDistortedEnergy();
-        }
     }
     
     void PerformMeleeAttack()
@@ -176,10 +170,10 @@ public class PlayerController : MonoBehaviour
         
         switch (race)
         {
-            case RaceType.SealedHuman:
+            case RaceType.PrisonerHuman:
                 Debug.Log("[Магическая перезапись] - изменение реальности!");
                 break;
-            case RaceType.SeparatedAmalgama:
+            case RaceType.SeparatedAmalgam:
                 Debug.Log("[Королевская зона] - подавление энергий!");
                 break;
             case RaceType.FormedAnomaly:
@@ -203,21 +197,6 @@ public class PlayerController : MonoBehaviour
         // Логика переговоров
     }
     
-    void RerollDistortedEnergy()
-    {
-        if (race == RaceType.DistortedChaos)
-        {
-            if (characterGenerator != null)
-            {
-                characterGenerator.RerollDistortedEnergy();
-            }
-        }
-        else
-        {
-            Debug.Log("Только существо хаоса искаженной энергии может менять энергию!");
-        }
-    }
-    
     void PerformMeleeVisualEffect()
     {
         // Создаем эффект атаки ближнего боя
@@ -227,9 +206,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.DrawLine(attackPoint.position, enemy.transform.position, Color.red, 0.5f);
         }
-        
-        // Визуализация радиуса атаки
-        Debug.DrawCircle(attackPoint.position, meleeRange, Color.yellow, 0.2f);
     }
     
     public void Initialize(RaceType newRace, EnergyType newPrimaryEnergy, 

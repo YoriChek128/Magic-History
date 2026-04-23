@@ -79,7 +79,7 @@ public class CombatSystem : MonoBehaviour
             Rigidbody2D rb = newProjectile.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.velocity = direction * speed;
+                rb.linearVelocity = direction * speed;
             }
         }
         
